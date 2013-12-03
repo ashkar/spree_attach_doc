@@ -5,8 +5,8 @@ class Doc < Asset
    attr_accessible :alt, :attachment, :position, :viewable_type, :viewable_id
 
   has_attached_file :attachment,
-                    :url => "/spree/docs/products/:id/:style/:basename.:extension",
-                    :path => ":rails_root/public/spree/docs/products/:id/:style/:basename.:extension"
+                    :url => "/spree/docs/products/:id/:basename.:extension",
+                    :path => ":rails_root/public/spree/docs/products/:id/:basename.:extension"
 
   before_post_process :skip_thumbnail_creation
   
@@ -15,9 +15,10 @@ class Doc < Asset
   
   include Spree::Core::S3Support
   supports_s3 :attachment
+
      Spree::Doc.attachment_definitions[:attachment][:path] = Spree::Config[:attachment_path]
      Spree::Doc.attachment_definitions[:attachment][:url] = Spree::Config[:attachment_url]
-     Spree::Doc.attachment_definitions[:attachment][:default_url] = Spree::Config[:attachment_default_url]
+     #Spree::Doc.attachment_definitions[:attachment][:default_url] = Spree::Config[:attachment_default_url]
 
   def no_attachment_errors
     unless attachment.errors.empty?

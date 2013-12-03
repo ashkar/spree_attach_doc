@@ -10,7 +10,7 @@ module Spree
       private
 
         def location_after_destroy
-          admin_product_images_url(@product)
+          admin_product_docs_url(@product)
         end
 
         def location_after_save
