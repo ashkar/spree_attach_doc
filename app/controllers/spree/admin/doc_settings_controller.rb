@@ -1,6 +1,6 @@
 module Spree
   module Admin
-    class ImageSettingsController < Spree::Admin::BaseController
+    class DocSettingsController < Spree::Admin::BaseController
       def edit
         @styles = ActiveSupport::JSON.decode(Spree::Config[:attachment_styles])
         @headers = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
@@ -15,8 +15,8 @@ module Spree
 
         respond_to do |format|
           format.html {
-            flash[:success] = t(:image_settings_updated)
-            redirect_to edit_admin_image_settings_path
+            flash[:success] = t(:doc_settings_updated)
+            redirect_to edit_admin_doc_settings_path
           }
         end
       end
@@ -47,18 +47,18 @@ module Spree
       def update_paperclip_settings
         if Spree::Config[:use_s3]
           s3_creds = { :access_key_id => Spree::Config[:s3_access_key], :secret_access_key => Spree::Config[:s3_secret], :bucket => Spree::Config[:s3_bucket] }
-          Spree::Image.attachment_definitions[:attachment][:storage] = :s3
-          Spree::Image.attachment_definitions[:attachment][:s3_credentials] = s3_creds
-          Spree::Image.attachment_definitions[:attachment][:s3_headers] = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
-          Spree::Image.attachment_definitions[:attachment][:bucket] = Spree::Config[:s3_bucket]
+          Spree::Doc.attachment_definitions[:attachment][:storage] = :s3
+          Spree::Doc.attachment_definitions[:attachment][:s3_credentials] = s3_creds
+          Spree::Doc.attachment_definitions[:attachment][:s3_headers] = ActiveSupport::JSON.decode(Spree::Config[:s3_headers])
+          Spree::Doc.attachment_definitions[:attachment][:bucket] = Spree::Config[:s3_bucket]
         else
-          Spree::Image.attachment_definitions[:attachment].delete :storage
+          Spree::Doc.attachment_definitions[:attachment].delete :storage
         end
 
-        Spree::Image.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:attachment_styles])
-        Spree::Image.attachment_definitions[:attachment][:path] = Spree::Config[:attachment_path]
-        Spree::Image.attachment_definitions[:attachment][:default_url] = Spree::Config[:attachment_default_url]
-        Spree::Image.attachment_definitions[:attachment][:default_style] = Spree::Config[:attachment_default_style]
+        Spree::Doc.attachment_definitions[:attachment][:styles] = ActiveSupport::JSON.decode(Spree::Config[:attachment_styles])
+        Spree::Doc.attachment_definitions[:attachment][:path] = Spree::Config[:attachment_path]
+        Spree::Doc.attachment_definitions[:attachment][:default_url] = Spree::Config[:attachment_default_url]
+        Spree::Doc.attachment_definitions[:attachment][:default_style] = Spree::Config[:attachment_default_style]
       end
     end
   end

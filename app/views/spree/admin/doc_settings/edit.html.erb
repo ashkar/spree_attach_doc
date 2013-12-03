@@ -1,17 +1,17 @@
 <%= render :partial => 'spree/admin/shared/configuration_menu' %>
 
 <% content_for :page_title do %>
-  <%= t(:image_settings) %>
+  <%= t(:doc_settings) %>
 <% end %>
 
-<%= form_tag admin_image_settings_path, :method => :put do %>
+<%= form_tag admin_doc_settings_path, :method => :put do %>
   
   <fieldset class="no-border-top">
     <fieldset class="no-border-bottom">
       <legend align="center"><%= t(:general_settings)%></legend>
       
       <div class="field">
-        <div class="warning note"><%= t(:image_settings_warning) %></div>
+        <div class="warning note"><%= t(:doc_settings_warning) %></div>
       </div>    
 
       <div data-hook="attachment_path" class="field">
